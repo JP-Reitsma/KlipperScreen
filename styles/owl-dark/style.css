@@ -1,0 +1,251 @@
+/* Material-dark theme created by Alfredo Monclus 2021 */
+@define-color text #bebcb8;
+@define-color bg rgba(0, 0, 0, 0.2); 
+@define-color buttons-bg #090909;
+@define-color color1 #c7934f;
+@define-color color2 #c7934f;
+@define-color color3 #c7934f;
+@define-color color4 #d3914c;
+
+@define-color echo #006412;
+@define-color warning #EF6C00;
+@define-color error #c42e25;
+
+@define-color active #d46900;
+@define-color active-dark #282828;
+@define-color lines #a2a2a2;
+@define-color slider #c42e25;
+
+* {
+ 
+    font-family: "JetBrains Mono", "IBM Plex Mono", "FreeMono", monospace;
+    font-variant: small-caps;
+    font-weight: bold;
+}
+
+window {
+    background-image: url("/home/mks/KlipperScreen/styles/owl-dark/background.jpg");}
+
+
+/*some buttons vontain an extra box that fucks with the appearance of the actual button, so we make it transparan*/
+.content button box
+{
+    background-image: none; 
+    background-color: rgba(0, 0, 0, 0);
+}
+
+
+/*all buttons*/
+.content button,
+button
+{
+    background-image: none; 
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 1.5em;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: @color1;
+}
+
+
+
+
+
+.content button:hover,
+.content button:active,
+.content button:checked,
+button:hover, 
+button:active, 
+button:checked,
+button:focused 
+{
+    background-image: none; 
+    background-color: rgba(0, 0, 0, 1);
+    border-radius: 2em;
+    border-bottom-width: 5px;
+    border-bottom-style: solid;
+    border-bottom-color: @color1;
+}
+
+
+
+
+
+button.invalid {
+    border-bottom-color: #6e0808;
+}
+
+
+treeview.view check,
+switch {
+    background-color: #6e0808;
+}
+
+treeview.view check:checked,
+switch:checked {
+    background-color: @echo;
+}
+
+treeview.view check:checked {
+    -gtk-icon-source: url("./styles/owl-dark/images/complete.svg");
+}
+
+entry {
+    background-color: @active-dark;
+    border-color: @active-dark;
+}
+
+label {
+    color: @text;
+}
+
+trough {
+    background-color: @active-dark;
+    color: @text;
+}
+
+trough highlight,
+trough progress {
+    background-color: #6e0808;
+    color: @text;
+    border-color: @bg;
+}
+
+scale-mark {
+    color: @text;
+}
+
+scrollbar,
+scrollbar button,
+scrollbar trough {
+    background-color: @bg;
+}
+
+scrollbar slider {
+    background-color: @active-dark;
+}
+
+textview .time {
+    color: @lines;
+}
+
+.dialog {
+    border: @bg;
+    background-color: @bg;
+}
+
+.dialog button {
+    background-color: @buttons-bg;
+    border-radius: .75em;
+}
+
+.horizontal_togglebuttons {
+    border-color: @bg;
+    background-color: @buttons-bg;
+}
+
+button:active,
+.horizontal_togglebuttons_active,
+button.active {
+    background-color: @active;
+}
+
+.fan_slider {
+    color: @text;
+}
+
+.message_popup {
+    border-bottom-color: @text;
+}
+
+.message_popup_echo,
+.message_popup_echo button {
+    background-color: @echo;
+}
+
+.message_popup_warning,
+.message_popup_warning button {
+    background-color: @warning;
+}
+
+.message_popup_error,
+.message_popup_error button {
+    background-color: #6e0808;
+}
+
+.numpad_key {
+    border-color: @bg;
+    background-color: @buttons-bg;
+}
+
+.printing-status,
+.printing-progress-text,
+.printing-status-label {
+    color: @text;
+}
+
+.message {
+    border-color: #6e0808;
+    color: @text;
+    background-color: #6e0808;
+}
+
+.message button {
+    background-color: @text;
+    color: @bg;
+}
+
+.warning {
+    background-color: @warning;
+}
+
+.error {
+    background-color: #6e0808;
+}
+
+.keyboard_pad {
+    background-color: @buttons-bg;
+}
+
+.dialog-error {
+    border-bottom-color: #6e0808;
+}
+
+.dialog-warning {
+    border-bottom-color: @warning;
+}
+
+.dialog-info {
+    border-bottom-color: @color4;
+}
+
+.dialog-default {
+    border-bottom-color: @color3;
+    box-shadow: none;
+    border-bottom: 1px solid @color1
+}
+
+.dialog-secondary {
+     border-bottom-color: @color2;
+}
+
+.dialog-primary {
+     border-bottom-color: @color1;
+}
+
+.heater-grid {
+    margin-top: 30px;
+}
+
+.content heater-grid button {
+    padding-top: 1px;
+    padding-bottom: 1px;
+    min-height: 20px;
+}
+
+.color1,
+.color2,
+.color3,
+.color4 {
+    min-height: 100px;
+}
