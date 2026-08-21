@@ -57,7 +57,7 @@ class AppState:
 
 
 class KlipperScreen(Gtk.ApplicationWindow):
-    MAX_RETRIES = 4
+    MAX_RETRIES = 10
 
     def __init__(self, args):
         try:
