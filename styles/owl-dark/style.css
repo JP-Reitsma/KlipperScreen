@@ -8,7 +8,8 @@
    --------------------------------------------------------- */
 
 @define-color text #bebcb8;
-@define-color bg rgba(0, 0, 0, 0.2);
+@define-color bg #121212;
+@define-color transparent-bg rgba(0, 0, 0, 0.2);
 @define-color buttons-bg #090909;
 
 @define-color color1 #c7934f;
@@ -33,10 +34,6 @@
 
 * {
     color: @text;
-}
-
-
-* {
     font-family: "JetBrains Mono", "IBM Plex Mono", "FreeMono", monospace;
     font-variant: small-caps;
 }
@@ -44,8 +41,8 @@
 junction,
 list row,
 treeview.view,
-button,
-window {
+window,
+button {
     background-color: @bg;
 }
 
@@ -55,7 +52,7 @@ window {
    --------------------------------------------------------- */
 
 window {
-    /*background-color: @bg;*/
+    /*background-color: @transparent-bg;*/
     background-image: url("/home/mks/KlipperScreen/styles/owl-dark/background.jpg");
 }
 
@@ -113,8 +110,6 @@ combobox menuitem {
     color: @text;
 }
 
-/* GTK menu scroll arrows use the default theme styling. */
-
 
 /* ---------------------------------------------------------
    SWITCHES / CHECKBOXES
@@ -161,7 +156,7 @@ scale-mark {
 scrollbar,
 scrollbar button,
 scrollbar trough {
-    background-color: @bg;
+    background-color: @transparent-bg;
 }
 
 scrollbar slider {
