@@ -717,3 +717,60 @@ keyboard_box {
 .monospaced {
     font-family: monospace;
 }
+
+/* ---------------------------------------------------------
+   GENERIC DROPDOWN POPOVER
+   --------------------------------------------------------- */
+
+.dropdown-popover-button {
+    background-color: @active-dark;
+    border: .05em solid @bg;
+    padding: 0 .7em;
+    border-radius: .7em;
+}
+
+.dropdown-popover-button label {
+    color: @text;
+}
+
+.dropdown-popover {
+    background-color: @active-dark;
+    border: .1em solid @lines;
+    padding: 1px;
+}
+
+.dropdown-popover-scrolled {
+    background-color: @active-dark;
+    border-radius: .6em;
+}
+
+.dropdown-popover-scrolled viewport {
+    background-color: @active-dark;
+    border-radius: .6em;
+}
+
+.dropdown-popover-list {
+    background-color: @active-dark;
+    border-radius: .6em;
+}
+
+.dropdown-popover-row {
+    background-color: @active-dark;
+    color: @text;
+    border: 0;
+    border-radius: .6em;
+}
+
+.dropdown-popover-row label {
+    color: @text;
+}
+
+.dropdown-popover-row:hover,
+.dropdown-popover-row:selected {
+    background-color: @active;
+}
+
+.dropdown-popover-row:hover label,
+.dropdown-popover-row:selected label {
+    color: @text-inv;
+}
