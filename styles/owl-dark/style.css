@@ -1,7 +1,16 @@
-/* Material-dark theme created by Alfredo Monclus 2021 */
+/* =========================================================
+   Owl-dark theme created by JP 2026
+   ========================================================= */
+
+
+/* ---------------------------------------------------------
+   COLORS
+   --------------------------------------------------------- */
+
 @define-color text #bebcb8;
-@define-color bg rgba(0, 0, 0, 0.2); 
+@define-color bg rgba(0, 0, 0, 0.2);
 @define-color buttons-bg #090909;
+
 @define-color color1 #c7934f;
 @define-color color2 #c7934f;
 @define-color color3 #c7934f;
@@ -10,36 +19,60 @@
 @define-color echo #006412;
 @define-color warning #EF6C00;
 @define-color error #c42e25;
+@define-color error-dark #6e0808;
 
 @define-color active #d46900;
 @define-color active-dark #282828;
 @define-color lines #a2a2a2;
 @define-color slider #c42e25;
 
+
+/* ---------------------------------------------------------
+   TYPOGRAPHY
+   --------------------------------------------------------- */
+
 * {
- 
-    font-family: "JetBrains Mono", "IBM Plex Mono", "FreeMono", monospace;
-    font-variant: small-caps;
-    font-weight: bold;
+    color: @text;
 }
 
+
+* {
+    font-family: "JetBrains Mono", "IBM Plex Mono", "FreeMono", monospace;
+    font-variant: small-caps;
+}
+
+junction,
+list row,
+treeview.view,
+button,
 window {
-    background-image: url("/home/mks/KlipperScreen/styles/owl-dark/background.jpg");}
+    background-color: @bg;
+}
 
 
-/*some buttons vontain an extra box that fucks with the appearance of the actual button, so we make it transparan*/
-.content button box
-{
-    background-image: none; 
+/* ---------------------------------------------------------
+   WINDOW
+   --------------------------------------------------------- */
+
+window {
+    /*background-color: @bg;*/
+    background-image: url("/home/mks/KlipperScreen/styles/owl-dark/background.jpg");
+}
+
+
+/* ---------------------------------------------------------
+   BUTTONS
+   --------------------------------------------------------- */
+
+/* Some buttons contain an extra box that affects appearance. */
+.content button box {
+    background-image: none;
     background-color: rgba(0, 0, 0, 0);
 }
 
-
-/*all buttons*/
+/* All buttons */
 .content button,
-button
-{
-    background-image: none; 
+button {
     background-color: rgba(0, 0, 0, 0.3);
     border-radius: 1.5em;
     border-bottom-width: 1px;
@@ -47,19 +80,14 @@ button
     border-bottom-color: @color1;
 }
 
-
-
-
-
+/* Button states */
 .content button:hover,
 .content button:active,
 .content button:checked,
-button:hover, 
-button:active, 
+button:hover,
+button:active,
 button:checked,
-button:focused 
-{
-    background-image: none; 
+button:focused {
     background-color: rgba(0, 0, 0, 1);
     border-radius: 2em;
     border-bottom-width: 5px;
@@ -67,18 +95,34 @@ button:focused
     border-bottom-color: @color1;
 }
 
-
-
-
-
 button.invalid {
-    border-bottom-color: #6e0808;
+    border-bottom-color: @error-dark;
 }
 
 
+/* ---------------------------------------------------------
+   COMBOBOX / DROPDOWN
+   --------------------------------------------------------- */
+
+menu,
+menuitem,
+combobox button,
+combobox menuitem {
+    background-color: @active-dark;
+    border-color: @bg;
+    color: @text;
+}
+
+/* GTK menu scroll arrows use the default theme styling. */
+
+
+/* ---------------------------------------------------------
+   SWITCHES / CHECKBOXES
+   --------------------------------------------------------- */
+
 treeview.view check,
 switch {
-    background-color: #6e0808;
+    background-color: @error-dark;
 }
 
 treeview.view check:checked,
@@ -90,30 +134,29 @@ treeview.view check:checked {
     -gtk-icon-source: url("./styles/owl-dark/images/complete.svg");
 }
 
+
+/* ---------------------------------------------------------
+   INPUT / LABELS
+   --------------------------------------------------------- */
+
 entry {
     background-color: @active-dark;
     border-color: @active-dark;
 }
 
-label {
-    color: @text;
-}
 
-trough {
-    background-color: @active-dark;
-    color: @text;
-}
-
-trough highlight,
-trough progress {
-    background-color: #6e0808;
-    color: @text;
-    border-color: @bg;
-}
+/* ---------------------------------------------------------
+   SLIDERS / TROUGHS
+   --------------------------------------------------------- */
 
 scale-mark {
     color: @text;
 }
+
+
+/* ---------------------------------------------------------
+   SCROLLBARS
+   --------------------------------------------------------- */
 
 scrollbar,
 scrollbar button,
@@ -125,9 +168,10 @@ scrollbar slider {
     background-color: @active-dark;
 }
 
-textview .time {
-    color: @lines;
-}
+
+/* ---------------------------------------------------------
+   DIALOGS
+   --------------------------------------------------------- */
 
 .dialog {
     border: @bg;
@@ -138,6 +182,35 @@ textview .time {
     background-color: @buttons-bg;
     border-radius: .75em;
 }
+
+.dialog-error {
+    border-bottom-color: @error-dark;
+}
+
+.dialog-warning {
+    border-bottom-color: @warning;
+}
+
+.dialog-info {
+    border-bottom-color: @color4;
+}
+
+.dialog-default {
+    border-bottom: 1px solid @color1;
+}
+
+.dialog-secondary {
+    border-bottom-color: @color2;
+}
+
+.dialog-primary {
+    border-bottom-color: @color1;
+}
+
+
+/* ---------------------------------------------------------
+   TOGGLE BUTTONS
+   --------------------------------------------------------- */
 
 .horizontal_togglebuttons {
     border-color: @bg;
@@ -150,44 +223,23 @@ button.active {
     background-color: @active;
 }
 
-.fan_slider {
-    color: @text;
-}
+
+/* ---------------------------------------------------------
+   MESSAGES
+   --------------------------------------------------------- */
 
 .message_popup {
     border-bottom-color: @text;
 }
 
-.message_popup_echo,
-.message_popup_echo button {
-    background-color: @echo;
-}
-
-.message_popup_warning,
-.message_popup_warning button {
-    background-color: @warning;
-}
-
 .message_popup_error,
 .message_popup_error button {
-    background-color: #6e0808;
-}
-
-.numpad_key {
-    border-color: @bg;
-    background-color: @buttons-bg;
-}
-
-.printing-status,
-.printing-progress-text,
-.printing-status-label {
-    color: @text;
+    background-color: @error-dark;
 }
 
 .message {
-    border-color: #6e0808;
-    color: @text;
-    background-color: #6e0808;
+    border-color: @error-dark;
+    background-color: @error-dark;
 }
 
 .message button {
@@ -200,38 +252,27 @@ button.active {
 }
 
 .error {
-    background-color: #6e0808;
+    background-color: @error-dark;
 }
+
+
+/* ---------------------------------------------------------
+   KEYBOARD / NUMPAD
+   --------------------------------------------------------- */
 
 .keyboard_pad {
     background-color: @buttons-bg;
 }
 
-.dialog-error {
-    border-bottom-color: #6e0808;
+.numpad_key {
+    border-color: @bg;
+    background-color: @buttons-bg;
 }
 
-.dialog-warning {
-    border-bottom-color: @warning;
-}
 
-.dialog-info {
-    border-bottom-color: @color4;
-}
-
-.dialog-default {
-    border-bottom-color: @color3;
-    box-shadow: none;
-    border-bottom: 1px solid @color1
-}
-
-.dialog-secondary {
-     border-bottom-color: @color2;
-}
-
-.dialog-primary {
-     border-bottom-color: @color1;
-}
+/* ---------------------------------------------------------
+   HEATER GRID
+   --------------------------------------------------------- */
 
 .heater-grid {
     margin-top: 30px;
@@ -241,11 +282,4 @@ button.active {
     padding-top: 1px;
     padding-bottom: 1px;
     min-height: 20px;
-}
-
-.color1,
-.color2,
-.color3,
-.color4 {
-    min-height: 100px;
 }
