@@ -1,0 +1,284 @@
+/* =========================================================
+   Owl-dark theme created by JP 2026
+   ========================================================= */
+
+
+/* ---------------------------------------------------------
+   COLORS
+   --------------------------------------------------------- */
+
+@define-color text #bebcb8;
+@define-color bg #121212;
+@define-color transparent-bg rgba(0, 0, 0, 0.2);
+@define-color buttons-bg #090909;
+
+@define-color color1 #c7934f;
+@define-color color2 #c7934f;
+@define-color color3 #c7934f;
+@define-color color4 #d3914c;
+
+@define-color echo #006412;
+@define-color warning #EF6C00;
+@define-color error #c42e25;
+@define-color error-dark #6e0808;
+
+@define-color active #d46900;
+@define-color active-dark #282828;
+@define-color lines #a2a2a2;
+@define-color slider #c42e25;
+
+
+
+/* ---------------------------------------------------------
+   TYPOGRAPHY
+   --------------------------------------------------------- */
+
+* {
+    color: @text;
+    font-family: "JetBrains Mono", "IBM Plex Mono", "FreeMono", monospace;
+    font-variant: small-caps;
+}
+
+junction,
+list row,
+treeview.view,
+window,
+button {
+    background-color: @bg;
+}
+
+
+/* ---------------------------------------------------------
+   WINDOW
+   --------------------------------------------------------- */
+
+window {
+    /*background-color: @transparent-bg;*/
+    background-image: url("/home/mks/KlipperScreen/styles/owl-dark/background.jpg");
+}
+
+
+/* ---------------------------------------------------------
+   BUTTONS
+   --------------------------------------------------------- */
+
+/* Some buttons contain an extra box that affects appearance. */
+.content button box {
+    background-image: none;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+/* All buttons */
+.content button,
+button {
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 1.5em;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: @color1;
+}
+
+/* Button states */
+.content button:hover,
+.content button:active,
+.content button:checked,
+button:hover,
+button:active,
+button:checked,
+button:focused {
+    background-color: rgba(0, 0, 0, 1);
+    border-radius: 2em;
+    border-bottom-width: 5px;
+    border-bottom-style: solid;
+    border-bottom-color: @color1;
+}
+
+button.invalid {
+    border-bottom-color: @error-dark;
+}
+
+
+/* ---------------------------------------------------------
+   COMBOBOX / DROPDOWN
+   --------------------------------------------------------- */
+
+menu,
+menuitem,
+combobox button,
+combobox menuitem {
+    background-color: @active-dark;
+    border-color: @bg;
+    color: @text;
+}
+
+
+/* ---------------------------------------------------------
+   SWITCHES / CHECKBOXES
+   --------------------------------------------------------- */
+
+treeview.view check,
+switch {
+    background-color: @error-dark;
+}
+
+treeview.view check:checked,
+switch:checked {
+    background-color: @echo;
+}
+
+treeview.view check:checked {
+    -gtk-icon-source: url("./styles/owl-dark/images/complete.svg");
+}
+
+
+/* ---------------------------------------------------------
+   INPUT / LABELS
+   --------------------------------------------------------- */
+
+entry {
+    background-color: @active-dark;
+    border-color: @active-dark;
+}
+
+
+/* ---------------------------------------------------------
+   SLIDERS / TROUGHS
+   --------------------------------------------------------- */
+
+scale-mark {
+    color: @text;
+}
+
+
+/* ---------------------------------------------------------
+   SCROLLBARS
+   --------------------------------------------------------- */
+
+scrollbar,
+scrollbar button,
+scrollbar trough {
+    background-color: @transparent-bg;
+}
+
+scrollbar slider {
+    background-color: @active-dark;
+}
+
+
+/* ---------------------------------------------------------
+   DIALOGS
+   --------------------------------------------------------- */
+
+.dialog {
+    border: @bg;
+    background-color: @bg;
+}
+
+.dialog button {
+    background-color: @buttons-bg;
+    border-radius: .75em;
+}
+
+.dialog-error {
+    border-bottom-color: @error-dark;
+}
+
+.dialog-warning {
+    border-bottom-color: @warning;
+}
+
+.dialog-info {
+    border-bottom-color: @color4;
+}
+
+.dialog-default {
+    border-bottom: 1px solid @color1;
+}
+
+.dialog-secondary {
+    border-bottom-color: @color2;
+}
+
+.dialog-primary {
+    border-bottom-color: @color1;
+}
+
+
+/* ---------------------------------------------------------
+   TOGGLE BUTTONS
+   --------------------------------------------------------- */
+
+.horizontal_togglebuttons {
+    border-color: @bg;
+    background-color: @buttons-bg;
+}
+
+button:active,
+.horizontal_togglebuttons_active,
+button.active {
+    background-color: @active;
+}
+
+
+/* ---------------------------------------------------------
+   MESSAGES
+   --------------------------------------------------------- */
+
+.message_popup {
+    border-bottom-color: @text;
+}
+
+.message_popup_error,
+.message_popup_error button {
+    background-color: @error-dark;
+}
+
+.message {
+    border-color: @error-dark;
+    background-color: @error-dark;
+}
+
+.message button {
+    background-color: @text;
+    color: @bg;
+}
+
+.warning {
+    background-color: @warning;
+}
+
+.error {
+    background-color: @error-dark;
+}
+
+.message_popup_echo {
+    background-color: @bg;
+}
+
+/* ---------------------------------------------------------
+   KEYBOARD / NUMPAD
+   --------------------------------------------------------- */
+
+.keyboard_pad {
+    background-color: @buttons-bg;
+}
+
+.numpad_key {
+    border-color: @bg;
+    background-color: @buttons-bg;
+}
+
+
+/* ---------------------------------------------------------
+   HEATER GRID
+   --------------------------------------------------------- */
+
+.heater-grid {
+    margin-top: 30px;
+}
+
+.content heater-grid button {
+    padding-top: 1px;
+    padding-bottom: 1px;
+    min-height: 20px;
+}
