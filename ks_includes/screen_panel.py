@@ -9,6 +9,143 @@ from gi.repository import GLib, Gtk, Pango
 from ks_includes.KlippyGtk import find_widget
 
 
+class DropdownPopover(Gtk.MenuButton):
+    def __init__(self, options, active_value, change_callback, config, section, option):
+        super().__init__()
+
+        self.options = options
+        self.active_value = active_value
+        self.change_callback = change_callback
+        self.config = config
+        self.section = section
+        self.option = option
+
+        self.get_style_context().add_class("dropdown-popover-button")
+
+        # Button contents
+        box = Gtk.Box(
+            orientation=Gtk.Orientation.HORIZONTAL,
+            spacing=8,
+        )
+
+        self.value_label = Gtk.Label(
+            xalign=0.5,
+            valign=Gtk.Align.CENTER,
+        )
+
+        arrow = Gtk.Image.new_from_icon_name(
+            "pan-down-symbolic",
+            Gtk.IconSize.MENU,
+        )
+
+        box.pack_start(self.value_label, True, True, 0)
+        box.pack_start(arrow, False, False, 0)
+
+        self.add(box)
+
+        # Popup list
+        self.list_box = Gtk.ListBox()
+        self.list_box.set_selection_mode(Gtk.SelectionMode.SINGLE)
+        self.list_box.connect("row-activated", self._row_activated)
+        self.list_box.get_style_context().add_class("dropdown-popover-list")
+
+        self.scrolled = Gtk.ScrolledWindow()
+        self.scrolled.set_policy(
+            Gtk.PolicyType.NEVER,
+            Gtk.PolicyType.AUTOMATIC,
+        )
+        self.scrolled.set_propagate_natural_height(True)
+        self.scrolled.set_min_content_height(1)
+        self.scrolled.add(self.list_box)
+        self.scrolled.get_style_context().add_class("dropdown-popover-scrolled")
+
+        self.popover = Gtk.Popover()
+        self.popover.set_position(Gtk.PositionType.BOTTOM)
+        self.popover.set_border_width(0)
+        self.popover.add(self.scrolled)
+        self.popover.get_style_context().add_class("dropdown-popover")
+
+        self.popover.connect("show", self._popup_shown)
+
+        self.set_popover(self.popover)
+
+        self._populate()
+
+    def _popup_shown(self, popover):
+        try:
+            window = self.get_window()
+            screen = window.get_screen()
+            monitor = screen.get_monitor_at_window(window)
+            geometry = screen.get_monitor_geometry(monitor)
+
+            # Leave a small margin for the popover itself.
+            max_height = max(1, geometry.height - 10)
+
+            self.scrolled.set_max_content_height(max_height)
+        except Exception as e:
+            logging.debug("Dropdown popup height calculation failed: %r", e)
+
+    def _populate(self):
+        active_row = None
+
+        for value, name in self.options:
+            row = Gtk.ListBoxRow()
+            row.set_activatable(True)
+            row.set_selectable(True)
+            row.get_style_context().add_class("dropdown-popover-row")
+
+            label = Gtk.Label(
+                label=name,
+                xalign=0,
+                halign=Gtk.Align.FILL,
+                valign=Gtk.Align.CENTER,
+            )
+            label.set_margin_start(10)
+            label.set_margin_end(10)
+            label.set_margin_top(4)
+            label.set_margin_bottom(4)
+
+            row.add(label)
+
+            row._dropdown_value = value
+            row._dropdown_name = name
+
+            self.list_box.add(row)
+
+            if value == self.active_value:
+                active_row = row
+
+        self.list_box.show_all()
+
+        popup_child = self.popover.get_child()
+        if popup_child is not None:
+            popup_child.show_all()
+
+        if active_row is not None:
+            self.list_box.select_row(active_row)
+            self.value_label.set_text(active_row._dropdown_name)
+        elif self.options:
+            self.value_label.set_text(self.options[0][1])
+
+    def _row_activated(self, list_box, row):
+        if row is None:
+            return
+
+        value = row._dropdown_value
+        name = row._dropdown_name
+
+        self.active_value = value
+        self.value_label.set_text(name)
+
+        self.config.set(self.section, self.option, value)
+        self.config.save_user_config_options()
+
+        if self.change_callback is not None:
+            self.change_callback(value)
+
+        self.popover.popdown()
+
+
 class ScreenPanel:
     _screen = None
     _config = None
@@ -290,23 +427,25 @@ class ScreenPanel:
             row_box.add(switch)
             setting = {opt_name: switch}
         elif option["type"] == "dropdown":
-            dropdown = Gtk.ComboBoxText()
-            for i, opt in enumerate(option["options"]):
-                dropdown.append(opt["value"], opt["name"])
-                if opt["value"] == self._config.get_config()[option["section"]].get(
+            options = [
+                (opt["value"], opt["name"])
+                for opt in option["options"]
+            ]
+
+            dropdown = DropdownPopover(
+                options=options,
+                active_value=self._config.get_config()[option["section"]].get(
                     opt_name, option["value"]
-                ):
-                    dropdown.set_active(i)
-            dropdown.connect(
-                "changed",
-                self.on_dropdown_change,
-                option["section"],
-                opt_name,
-                option["callback"] if "callback" in option else None,
+                ),
+                change_callback=option["callback"] if "callback" in option else None,
+                config=self._config,
+                section=option["section"],
+                option=opt_name,
             )
-            dropdown.set_entry_text_column(0)
+
             row_box.add(dropdown)
             setting = {opt_name: dropdown}
+
         elif option["type"] == "scale":
             row_box.set_orientation(Gtk.Orientation.VERTICAL)
             scale = Gtk.Scale.new_with_range(
